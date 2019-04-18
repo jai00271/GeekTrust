@@ -11,7 +11,7 @@
         public static List<string> inputMessages;
         public static IRulerOfSoutheros rulerOfSoutheros;
 
-        public FindThePrince()
+        static FindThePrince()
         {
             rulerOfSoutheros = new RulerOfSoutheros();
         }
@@ -20,20 +20,19 @@
         {
             do
             {
-                question = Initialize();
+                inputMessages = Initialize(out question);
 
-                Console.WriteLine(WhoIsTheRuler(question));
+                Console.WriteLine(WhoIsTheRuler(question, inputMessages));
 
-                Console.WriteLine(WhoAreTheAlliesOfRuler(question));
-
+                Console.WriteLine(WhoAreTheAlliesOfRuler(question, inputMessages));
             } while (true);
         }
 
-        private static string Initialize()
+        private static List<string> Initialize(out string question)
         {
             inputMessages = new List<string>();
 
-            string question = Convert.ToString(Console.ReadKey());
+            question = Convert.ToString(Console.ReadKey());
 
             if (question.ToLower().Equals("Input Messages to kingdoms from King Shan".ToLower()) && inputMessages.Count == 0)
             {
@@ -47,21 +46,21 @@
                 }
             }
 
-            return question;
+            return inputMessages;
         }
 
-        public static string WhoIsTheRuler(string question)
+        public static string WhoIsTheRuler(string question, List<string> inputMessages)
         {
-            if (question.ToLower().Equals("Who is the ruler of Southeros?".ToLower()))
+            if (question.ToLower().Equals("Who is the ruler of Southeros?".ToLower()) && inputMessages?.Count > 2)
             {
                 return rulerOfSoutheros.WhoIsTheRuler(inputMessages);
             }
             return "None";
         }
 
-        public static StringBuilder WhoAreTheAlliesOfRuler(string question)
+        public static StringBuilder WhoAreTheAlliesOfRuler(string question, List<string> inputMessages)
         {
-            if (question.ToLower().Equals("Allies of Ruler?".ToLower()))
+            if (question.ToLower().Contains("Allies of".ToLower()) && inputMessages?.Count > 0)
             {
                 return rulerOfSoutheros.AlliesOfRuler(inputMessages);
             }

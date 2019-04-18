@@ -12,11 +12,11 @@ namespace AGoldenCrown.Services
         {
             houseAnimalMapping = new Dictionary<Enum, string>
             {
-                { House.AIR, "Owl" },
-                { House.FIRE, "Dragon" },
-                { House.ICE, "Mammoth" },
-                { House.LAND, "Panda" },
-                { House.WATER, "Octopus" }
+                { House.air, "Owl" },
+                { House.fire, "Dragon" },
+                { House.ice, "Mammoth" },
+                { House.land, "Panda" },
+                { House.water, "Octopus" }
             };
         }
 
@@ -45,34 +45,34 @@ namespace AGoldenCrown.Services
         private void GetLeader(string message, ref string ruler)
         {
             string[] msg = message.Split(',');
-            Enum.TryParse(msg[0], out House house);
+            Enum.TryParse(msg[0].ToLower(), out House house);
             string encodedMesaage = msg[1].Trim();
 
             switch (house)
             {
-                case House.AIR:
-                    Decoder(houseAnimalMapping[House.AIR], encodedMesaage);
-                    ruler = houseAnimalMapping[House.AIR];
+                case House.air:
+                    Decoder(houseAnimalMapping[House.air], encodedMesaage);
+                    ruler = houseAnimalMapping[House.air];
                     break;
 
-                case House.FIRE:
-                    Decoder(houseAnimalMapping[House.FIRE], encodedMesaage);
-                    ruler = houseAnimalMapping[House.FIRE];
+                case House.fire:
+                    Decoder(houseAnimalMapping[House.fire], encodedMesaage);
+                    ruler = houseAnimalMapping[House.fire];
                     break;
 
-                case House.ICE:
-                    Decoder(houseAnimalMapping[House.ICE], encodedMesaage);
-                    ruler = houseAnimalMapping[House.ICE];
+                case House.ice:
+                    Decoder(houseAnimalMapping[House.ice], encodedMesaage);
+                    ruler = houseAnimalMapping[House.ice];
                     break;
 
-                case House.LAND:
-                    Decoder(houseAnimalMapping[House.LAND], encodedMesaage);
-                    ruler = houseAnimalMapping[House.LAND];
+                case House.land:
+                    Decoder(houseAnimalMapping[House.land], encodedMesaage);
+                    ruler = houseAnimalMapping[House.land];
                     break;
 
-                case House.WATER:
-                    Decoder(houseAnimalMapping[House.WATER], encodedMesaage);
-                    ruler = houseAnimalMapping[House.WATER];
+                case House.water:
+                    Decoder(houseAnimalMapping[House.water], encodedMesaage);
+                    ruler = houseAnimalMapping[House.water];
                     break;
             }
         }
@@ -80,31 +80,31 @@ namespace AGoldenCrown.Services
         private static void GetAllies(StringBuilder ruler, string message)
         {
             string[] msg = message.Split(',');
-            Enum.TryParse(msg[0], out House house);
+            Enum.TryParse(msg[0].ToLower(), out House house);
 
             switch (house)
             {
-                case House.AIR:
-                    ruler.Append("Air");
+                case House.air:
+                    ruler.Append(", Air");
                     break;
 
-                case House.FIRE:
-                    ruler.AppendJoin(",", "Fire");
-
-                    break;
-
-                case House.ICE:
-                    ruler.AppendJoin(",", "Ice");
+                case House.fire:
+                    ruler.Append(", Fire");
 
                     break;
 
-                case House.LAND:
-                    ruler.AppendJoin(",", "Land");
+                case House.ice:
+                    ruler.Append(", Ice");
 
                     break;
 
-                case House.WATER:
-                    ruler.AppendJoin(",", "Water");
+                case House.land:
+                    ruler.Append(", Land");
+
+                    break;
+
+                case House.water:
+                    ruler.Append(", Water");
 
                     break;
             }
@@ -131,10 +131,10 @@ namespace AGoldenCrown.Services
 
     public enum House
     {
-        LAND = 1,
-        WATER = 2,
-        ICE = 3,
-        AIR = 4,
-        FIRE = 5
+        land = 1,
+        water = 2,
+        ice = 3,
+        air = 4,
+        fire = 5
     }
 }
