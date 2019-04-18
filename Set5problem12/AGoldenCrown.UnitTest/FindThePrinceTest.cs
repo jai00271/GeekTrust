@@ -13,6 +13,8 @@ namespace AGoldenCrown.UnitTest
         {
         }
 
+        #region RulerSearch
+
         [Fact]
         public void GivenNoInputMessage_WhenRulerFindBegins_ThenItReturnsNone()
         {
@@ -28,38 +30,10 @@ namespace AGoldenCrown.UnitTest
         }
 
         [Fact]
-        public void GivenNoInputMessage_WhenAlliesFindBegins_ThenItReturnsNone()
-        {
-            //Arrange
-            string question = question_allies;
-            List<string> inputMessages = new List<string>();
-
-            //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
-
-            //Assert
-            Assert.Equal("None", response);
-        }
-
-        [Fact]
         public void GivenWrongInputMessage_WhenRulerFindBegins_ThenItReturnsNone()
         {
             //Arrange
             string question = question_ruler;
-            List<string> inputMessages = new List<string>();
-
-            //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
-
-            //Assert
-            Assert.Equal("None", response);
-        }
-
-        [Fact]
-        public void GivenWrongInputMessage_WhenAlliesFindBegins_ThenItReturnsNone()
-        {
-            //Arrange
-            string question = question_allies;
             List<string> inputMessages = new List<string>();
 
             //Act
@@ -83,8 +57,59 @@ namespace AGoldenCrown.UnitTest
             var response = Convert.ToString(FindThePrince.WhoIsTheRuler(question, inputMessages));
 
             //Assert
-            Assert.Equal("Shan", response);
+            Assert.Contains("King Shan", response);
         }
+
+        [Fact]
+        public void GivenInCorrectInputMessage_WhenRulerFindBegins_ThenItReturnsNone()
+        {
+            //Arrange
+            string question = question_ruler;
+            List<string> inputMessages = new List<string>();
+            inputMessages.Add("Air, “oaaawaaa”");
+            inputMessages.Add("Land, “a1d22n333a4444p”");
+            inputMessages.Add("Ice, “zmzmzmzaztzozh”");
+
+            //Act
+            var response = Convert.ToString(FindThePrince.WhoIsTheRuler(question, inputMessages)).TrimStart(',');
+
+            //Assert
+            Assert.Equal("None", response);
+        }
+
+        #endregion RulerSearch
+
+        #region AlliesSearch
+
+        [Fact]
+        public void GivenNoInputMessage_WhenAlliesFindBegins_ThenItReturnsNone()
+        {
+            //Arrange
+            string question = question_allies;
+            List<string> inputMessages = new List<string>();
+
+            //Act
+            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
+
+            //Assert
+            Assert.Equal("None", response);
+        }
+
+
+        [Fact]
+        public void GivenWrongInputMessage_WhenAlliesFindBegins_ThenItReturnsNone()
+        {
+            //Arrange
+            string question = question_allies;
+            List<string> inputMessages = new List<string>();
+
+            //Act
+            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
+
+            //Assert
+            Assert.Equal("None", response);
+        }
+
 
         [Fact]
         public void GivenCorrectInputMessage_WhenAlliesFindBegins_ThenItReturnsKingName()
@@ -121,21 +146,8 @@ namespace AGoldenCrown.UnitTest
             Assert.Contains("None", response);
         }
 
-        [Fact]
-        public void GivenMorethan3ButRepititiveInputMessage_WhenAlliesFindBegins_ThenItReturnsNone()
-        {
-            //Arrange
-            string question = question_allies;
-            List<string> inputMessages = new List<string>();
-            inputMessages.Add("Air, “oaaawaala”");
-            inputMessages.Add("Air, “oaaawaala”");
-            inputMessages.Add("Air, “oaaawaala”");
+        
 
-            //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages)).TrimStart(',');
-
-            //Assert
-            Assert.Contains("None", response);
-        }
+        #endregion AlliesSearch
     }
 }

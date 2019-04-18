@@ -60,11 +60,24 @@
 
         public static StringBuilder WhoAreTheAlliesOfRuler(string question, List<string> inputMessages)
         {
+            if (!ValidateAlliesOfRuler(question, inputMessages))
+            {
+                return new StringBuilder("None");
+            }
             if (question.ToLower().Contains("Allies of".ToLower()) && inputMessages?.Count > 0)
             {
                 return rulerOfSoutheros.AlliesOfRuler(inputMessages);
             }
             return new StringBuilder("None");
+        }
+
+        private static bool ValidateAlliesOfRuler(string question, List<string> inputMessages)
+        {
+            if (inputMessages.Count < 3)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

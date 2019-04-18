@@ -12,11 +12,11 @@ namespace AGoldenCrown.Services
         {
             houseAnimalMapping = new Dictionary<Enum, string>
             {
-                { House.air, "Owl" },
-                { House.fire, "Dragon" },
-                { House.ice, "Mammoth" },
-                { House.land, "Panda" },
-                { House.water, "Octopus" }
+                { House.air, "owl" },
+                { House.fire, "dragon" },
+                { House.ice, "mammoth" },
+                { House.land, "pnda" },
+                { House.water, "octopus" }
             };
         }
 
@@ -32,47 +32,51 @@ namespace AGoldenCrown.Services
 
         public string WhoIsTheRuler(List<string> inputMessages)
         {
-            string ruler = null;
+            int supportOfRuler = 0;
             foreach (var message in inputMessages)
             {
-                GetLeader(message, ref ruler);
+                GetLeader(message, ref supportOfRuler);
             }
-            return ruler;
+            if (supportOfRuler < 3)
+            {
+                return "None";
+            }
+            return "King Shan";
         }
 
         #region PRIVATE METHODS
 
-        private void GetLeader(string message, ref string ruler)
+        private void GetLeader(string message, ref int supportOfRuler)
         {
             string[] msg = message.Split(',');
             Enum.TryParse(msg[0].ToLower(), out House house);
-            string encodedMesaage = msg[1].Trim();
+            string encodedMesaage = msg[1].ToLower().Trim();
 
             switch (house)
             {
                 case House.air:
-                    Decoder(houseAnimalMapping[House.air], encodedMesaage);
-                    ruler = houseAnimalMapping[House.air];
+                    if (Decoder(houseAnimalMapping[House.air], encodedMesaage))
+                        supportOfRuler += 1;
                     break;
 
                 case House.fire:
-                    Decoder(houseAnimalMapping[House.fire], encodedMesaage);
-                    ruler = houseAnimalMapping[House.fire];
+                    if (Decoder(houseAnimalMapping[House.fire], encodedMesaage))
+                        supportOfRuler += 1;
                     break;
 
                 case House.ice:
-                    Decoder(houseAnimalMapping[House.ice], encodedMesaage);
-                    ruler = houseAnimalMapping[House.ice];
+                    if (Decoder(houseAnimalMapping[House.ice], encodedMesaage))
+                        supportOfRuler += 1;
                     break;
 
                 case House.land:
-                    Decoder(houseAnimalMapping[House.land], encodedMesaage);
-                    ruler = houseAnimalMapping[House.land];
+                    if (Decoder(houseAnimalMapping[House.land], encodedMesaage))
+                        supportOfRuler += 1;
                     break;
 
                 case House.water:
-                    Decoder(houseAnimalMapping[House.water], encodedMesaage);
-                    ruler = houseAnimalMapping[House.water];
+                    if (Decoder(houseAnimalMapping[House.water], encodedMesaage))
+                        supportOfRuler += 1;
                     break;
             }
         }
