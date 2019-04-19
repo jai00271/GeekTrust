@@ -7,27 +7,27 @@ namespace AGoldenCrown.Services
 {
     public class AlliesOfRuler : IAlliesOfRuler
     {
-        public StringBuilder WhoAreTheAlliesOfRuler(string question, List<string> inputMessages)
+        public string WhoAreTheAlliesOfRuler(string question, List<string> inputMessages)
         {
             if (!ValidateAlliesOfRuler(question, inputMessages))
             {
-                return new StringBuilder("None");
+                return "None";
             }
             if (question.ToLower().Contains("Allies of".ToLower()) && inputMessages?.Count > 0)
             {
                 return GetAllies(inputMessages);
             }
-            return new StringBuilder("None");
+            return "None";
         }
 
-        public StringBuilder GetAllies(List<string> inputMessages)
+        public string GetAllies(List<string> inputMessages)
         {
             StringBuilder ruler = new StringBuilder();
             foreach (var message in inputMessages)
             {
                 GetAlliesList(ruler, message);
             }
-            return ruler;
+            return Convert.ToString(ruler).TrimStart(',').Trim();
         }
 
         #region PRIVATE METHODS

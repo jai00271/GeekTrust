@@ -22,10 +22,6 @@
             do
             {
                 inputMessages = Initialize(out question);
-
-                Console.WriteLine(rulerOfSoutheros.SearchRuler(question, inputMessages));
-
-                Console.WriteLine(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages));
             } while (true);
         }
 
@@ -33,20 +29,23 @@
         {
             inputMessages = new List<string>();
 
-            question = Convert.ToString(Console.ReadKey());
+            question = Convert.ToString(Console.ReadLine());
+            string message = null;
 
-            if (question.ToLower().Equals("Input Messages to kingdoms from King Shan".ToLower()) && inputMessages.Count == 0)
+            if (question.ToLower().Contains("Input Messages to kingdoms from King Shan".ToLower()) && inputMessages.Count == 0)
             {
-                Console.WriteLine("How many messages you have, please enter the count.");
-
-                int inputCount = Convert.ToInt32(Console.ReadKey());
-
-                for (int i = 0; i < inputCount; i++)
+                do
                 {
-                    inputMessages.Add(Console.ReadLine());
-                }
+                    message = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(message) && !message.Contains("Who is the ruler of Southeros") && !message.Contains("Allies"))
+                        inputMessages.Add(message);
+                    if (message.Contains("Who is the ruler of Southeros"))
+                        Console.WriteLine(rulerOfSoutheros.SearchRuler(message, inputMessages));
+                    if (message.Contains("Allies"))
+                        Console.WriteLine(alliesOfRuler.WhoAreTheAlliesOfRuler(message, inputMessages));
+                } while (!message.Contains("Allies"));
             }
-
+            question = message;
             return inputMessages;
         }
     }
