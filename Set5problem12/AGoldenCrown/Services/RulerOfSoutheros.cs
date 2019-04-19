@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AGoldenCrown.Entity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,14 +21,13 @@ namespace AGoldenCrown.Services
             };
         }
 
-        public StringBuilder AlliesOfRuler(List<string> inputMessages)
+        public string SearchRuler(string question, List<string> inputMessages)
         {
-            StringBuilder ruler = new StringBuilder();
-            foreach (var message in inputMessages)
+            if (question.ToLower().Equals("Who is the ruler of Southeros?".ToLower()) && inputMessages?.Count > 2)
             {
-                GetAllies(ruler, message);
+                return WhoIsTheRuler(inputMessages);
             }
-            return ruler;
+            return "None";
         }
 
         public string WhoIsTheRuler(List<string> inputMessages)
@@ -81,39 +81,6 @@ namespace AGoldenCrown.Services
             }
         }
 
-        private static void GetAllies(StringBuilder ruler, string message)
-        {
-            string[] msg = message.Split(',');
-            Enum.TryParse(msg[0].ToLower(), out House house);
-
-            switch (house)
-            {
-                case House.air:
-                    ruler.Append(", Air");
-                    break;
-
-                case House.fire:
-                    ruler.Append(", Fire");
-
-                    break;
-
-                case House.ice:
-                    ruler.Append(", Ice");
-
-                    break;
-
-                case House.land:
-                    ruler.Append(", Land");
-
-                    break;
-
-                case House.water:
-                    ruler.Append(", Water");
-
-                    break;
-            }
-        }
-
         private bool Decoder(string animal, string encodedMesaage)
         {
             foreach (var character in animal.ToCharArray())
@@ -131,14 +98,5 @@ namespace AGoldenCrown.Services
         }
 
         #endregion PRIVATE METHODS
-    }
-
-    public enum House
-    {
-        land = 1,
-        water = 2,
-        ice = 3,
-        air = 4,
-        fire = 5
-    }
+    }    
 }

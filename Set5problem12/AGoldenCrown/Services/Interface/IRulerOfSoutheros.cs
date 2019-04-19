@@ -6,7 +6,7 @@ namespace AGoldenCrown.Services
 {
     public interface IRulerOfSoutheros
     {
+        string SearchRuler(string question, List<string> inputMessages);
         string WhoIsTheRuler(List<string> inputMessages);
-        StringBuilder AlliesOfRuler(List<string> inputMessages);
     }
 }

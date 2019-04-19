@@ -1,3 +1,4 @@
+using AGoldenCrown.Services;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -8,9 +9,13 @@ namespace AGoldenCrown.UnitTest
     {
         private readonly string question_ruler = "Who is the ruler of Southeros?";
         private readonly string question_allies = "Allies of";
+        public readonly IRulerOfSoutheros rulerOfSoutheros;
+        public readonly IAlliesOfRuler alliesOfRuler;
 
         public FindThePrinceTest()
         {
+            rulerOfSoutheros = new RulerOfSoutheros();
+            alliesOfRuler = new AlliesOfRuler();
         }
 
         #region RulerSearch
@@ -23,7 +28,7 @@ namespace AGoldenCrown.UnitTest
             List<string> inputMessages = new List<string>();
 
             //Act
-            var response = FindThePrince.WhoIsTheRuler(question, inputMessages);
+            var response = rulerOfSoutheros.SearchRuler(question, inputMessages);
 
             //Assert
             Assert.Equal("None", response);
@@ -37,7 +42,7 @@ namespace AGoldenCrown.UnitTest
             List<string> inputMessages = new List<string>();
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
+            var response = Convert.ToString(rulerOfSoutheros.SearchRuler(question, inputMessages));
 
             //Assert
             Assert.Equal("None", response);
@@ -54,7 +59,7 @@ namespace AGoldenCrown.UnitTest
             inputMessages.Add("Ice, “zmzmzmzaztzozh”");
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoIsTheRuler(question, inputMessages));
+            var response = Convert.ToString(rulerOfSoutheros.SearchRuler(question, inputMessages));
 
             //Assert
             Assert.Contains("King Shan", response);
@@ -71,7 +76,7 @@ namespace AGoldenCrown.UnitTest
             inputMessages.Add("Ice, “zmzmzmzaztzozh”");
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoIsTheRuler(question, inputMessages)).TrimStart(',');
+            var response = Convert.ToString(rulerOfSoutheros.SearchRuler(question, inputMessages)).TrimStart(',');
 
             //Assert
             Assert.Equal("None", response);
@@ -89,7 +94,7 @@ namespace AGoldenCrown.UnitTest
             List<string> inputMessages = new List<string>();
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
+            var response = Convert.ToString(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages));
 
             //Assert
             Assert.Equal("None", response);
@@ -104,7 +109,7 @@ namespace AGoldenCrown.UnitTest
             List<string> inputMessages = new List<string>();
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages));
+            var response = Convert.ToString(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages));
 
             //Assert
             Assert.Equal("None", response);
@@ -122,7 +127,7 @@ namespace AGoldenCrown.UnitTest
             inputMessages.Add("Ice, “zmzmzmzaztzozh”");
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages)).TrimStart(',');
+            var response = Convert.ToString(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages)).TrimStart(',');
 
             //Assert
             Assert.Contains("Air", response);
@@ -140,7 +145,7 @@ namespace AGoldenCrown.UnitTest
             inputMessages.Add("Land, “a1d22n333a4444p”");
 
             //Act
-            var response = Convert.ToString(FindThePrince.WhoAreTheAlliesOfRuler(question, inputMessages)).TrimStart(',');
+            var response = Convert.ToString(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages)).TrimStart(',');
 
             //Assert
             Assert.Contains("None", response);

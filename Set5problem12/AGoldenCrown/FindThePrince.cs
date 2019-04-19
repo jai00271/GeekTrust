@@ -3,17 +3,18 @@
     using AGoldenCrown.Services;
     using System;
     using System.Collections.Generic;
-    using System.Text;
 
     public class FindThePrince
     {
         public static string question;
         public static List<string> inputMessages;
         public static IRulerOfSoutheros rulerOfSoutheros;
+        public static IAlliesOfRuler alliesOfRuler;
 
         static FindThePrince()
         {
             rulerOfSoutheros = new RulerOfSoutheros();
+            alliesOfRuler = new AlliesOfRuler();
         }
 
         private static void Main(string[] args)
@@ -22,9 +23,9 @@
             {
                 inputMessages = Initialize(out question);
 
-                Console.WriteLine(WhoIsTheRuler(question, inputMessages));
+                Console.WriteLine(rulerOfSoutheros.SearchRuler(question, inputMessages));
 
-                Console.WriteLine(WhoAreTheAlliesOfRuler(question, inputMessages));
+                Console.WriteLine(alliesOfRuler.WhoAreTheAlliesOfRuler(question, inputMessages));
             } while (true);
         }
 
@@ -47,37 +48,6 @@
             }
 
             return inputMessages;
-        }
-
-        public static string WhoIsTheRuler(string question, List<string> inputMessages)
-        {
-            if (question.ToLower().Equals("Who is the ruler of Southeros?".ToLower()) && inputMessages?.Count > 2)
-            {
-                return rulerOfSoutheros.WhoIsTheRuler(inputMessages);
-            }
-            return "None";
-        }
-
-        public static StringBuilder WhoAreTheAlliesOfRuler(string question, List<string> inputMessages)
-        {
-            if (!ValidateAlliesOfRuler(question, inputMessages))
-            {
-                return new StringBuilder("None");
-            }
-            if (question.ToLower().Contains("Allies of".ToLower()) && inputMessages?.Count > 0)
-            {
-                return rulerOfSoutheros.AlliesOfRuler(inputMessages);
-            }
-            return new StringBuilder("None");
-        }
-
-        private static bool ValidateAlliesOfRuler(string question, List<string> inputMessages)
-        {
-            if (inputMessages.Count < 3)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }
