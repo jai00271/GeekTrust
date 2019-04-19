@@ -21,11 +21,11 @@
         {
             do
             {
-                inputMessages = Initialize(out question);
+                Initialize(out question);
             } while (true);
         }
 
-        private static List<string> Initialize(out string question)
+        private static void Initialize(out string question)
         {
             inputMessages = new List<string>();
 
@@ -45,8 +45,12 @@
                         Console.WriteLine(alliesOfRuler.WhoAreTheAlliesOfRuler(message, inputMessages));
                 } while (!message.Contains("Allies"));
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(question))
+                    Console.WriteLine("None");
+            }
             question = message;
-            return inputMessages;
         }
     }
 }
