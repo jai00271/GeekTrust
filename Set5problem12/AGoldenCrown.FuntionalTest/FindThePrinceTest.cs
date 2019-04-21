@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace AGoldenCrown.UnitTest
+namespace AGoldenCrown.FuntionalTest
 {
     public class FindThePrinceTest
     {
